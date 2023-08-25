@@ -4,10 +4,7 @@ const app = express();
 const userService = new UserService();
 const create = async (req,res) => {
 
-    try {
-        // app.use(express.json());
-        // req.data = req.body;
-        // console.log(req.data); 
+    try { 
         const response = await userService.create({
             email : req.body.email,
             password : req.body.password
@@ -30,6 +27,28 @@ const create = async (req,res) => {
         
     }
 }
+
+const getById = async (req,res) => {
+    try {
+        const response = await userService.getById(req.params.id);
+        return res.status(201).json({
+            success:'successfully get the user details',
+            data:response,
+            err:{}
+        });
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message : 'error on controllers layer',
+            data : {},
+            success : false,
+            err : error
+
+        })
+        
+    }
+}
 module.exports = {
-    create,
+    create,getById
 }
