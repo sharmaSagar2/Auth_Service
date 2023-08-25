@@ -53,5 +53,15 @@ class UserService {
         }
      }
 
+     checkPassword(userInputPlainPassword,encryptedPassword) {
+        try {
+            return bcrypt.compareSync(userInputPlainPassword,encryptedPassword);
+            
+        } catch (error) {
+            console.log('error on password comparison');
+            throw error;
+        }
+     }
+
 }
 module.exports = UserService;
