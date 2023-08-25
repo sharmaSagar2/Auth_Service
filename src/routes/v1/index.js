@@ -6,14 +6,28 @@ const UserController = require('../../controllers/user-controller');
 
 const { AuthRequestValidators }= require('../../middlewares/index');
 
+router.get(
+    '/signup/:id',
+    UserController.getById
+);
+
 router.post(
     '/signup',
     AuthRequestValidators.validateUserAuth,
-    UserController.create);
-router.get('/signup/:id',UserController.getById);
+    UserController.create
+);
+
 router.post(
     '/signin',
     AuthRequestValidators.validateUserAuth,
-    UserController.signIn);
+    UserController.signIn
+);
+
+router.get(
+    '/isAuthenticated',
+    UserController.isAuthenticated
+);
+
+
 
 module.exports = router;

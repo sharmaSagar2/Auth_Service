@@ -52,6 +52,25 @@ class UserService {
         }
     }
 
+    async isAuthenticated(token) {
+        try {
+            const response = this.verifyToken(token) ;
+            if(!response){
+                throw {error:'invalid token'};
+            }
+            const user = this.userRepository.getById(response.id);
+            if(!user){
+                console.log('no user with the corressponding token exits');
+                throw error;
+            }
+            return user.id;
+            
+        } catch (error) {
+            console.log('error in Auth process');
+            throw error;
+        }
+    }
+
      createToken(user) {
         try {
             const result = jwt.sign(user,JWT_KEY, {expiresIn : '1d'});
